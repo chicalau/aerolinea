@@ -18,6 +18,10 @@ public class Ticket {
     @OneToMany(mappedBy="ticketBaggage", fetch=FetchType.EAGER)
     private Set<Baggage> baggages = new HashSet<>();
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="passenger")
+    private Passenger passenger;
+
     private String reservationCode;
 
     private long ticketnumber;
@@ -28,11 +32,12 @@ public class Ticket {
 
     public Ticket(){};
 
-    public Ticket(String reservationCode, long ticketnumber, double totalPrice, boolean isActive ) {
+    public Ticket(String reservationCode, long ticketnumber, double totalPrice, boolean isActive, Passenger passenger ) {
         this.reservationCode = reservationCode;
         this.ticketnumber = ticketnumber;
         this.totalPrice = totalPrice;
         this.isActive = true;
+        this.passenger= passenger;
     }
 
     public long getId() {
@@ -64,5 +69,12 @@ public class Ticket {
     }
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Passenger getPassenger() {
+        return passenger;
+    }
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
     }
 }
